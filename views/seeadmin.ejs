@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>View Courses</title>
+    <meta name="csrf-token" content="<%= csrfToken %>" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css">
+</head>
+
+<body class="p-6">
+
+    <h1 class="text-3xl mb-6">Chapters for Pack ID: <%= packId %>
+    </h1>
+
+    <div class="mb-6">
+
+
+        <div class="bg-green-500 hover:bg-green-500 text-white font-bold py-2 px-4 rounded ">
+            You are a admin so you can not enroll
+            <div>
+
+            </div>
+
+            <table class="w-full table-auto">
+                <thead>
+                    <tr>
+                        <th class="px-4 py-2">Chapter Name</th>
+                        <th class="px-4 py-2">Chapter Description</th>
+                        <th class="px-4 py-2">status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% chapters.forEach((chapter)=> { %>
+                        <tr>
+                            <td class="border px-4 py-2">
+                                <%= chapter.title %>
+                            </td>
+                            <td class="border px-4 py-2">
+                                <%= chapter.description %>
+                            </td>
+                            <td class="border px-4 py-2">Locked</td>
+                        </tr>
+                        <% }); %>
+                </tbody>
+            </table>
+</body>
+
+</html>

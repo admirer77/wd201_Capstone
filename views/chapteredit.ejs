@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add Chapter Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <meta name="csrf-token" content="<%= csrfToken %>" />
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="absolute top-6 left-6 space-x-4">
+        <a href="/show" class="p-4 text-gray-800 bg-white rounded shadow-md">Home<span
+                class="ml-2 text-green-500">&#8594;</span></a>
+
+        <a href="" class="p-4 text-gray-800 bg-white rounded shadow-md">Create A Chapter<span
+                class="ml-2 text-green-500">&#8594;</span></a>
+    </div>
+    <div class="bg-white p-8 rounded shadow-md w-1/3">
+        <h1 class="text-2xl text-gray-800 mb-6">Add Chapter</h1>
+        <form action="/chapteredit/<%= notee.id %>" method="post">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <input type="text" name="title" placeholder="Enter chapter name"
+                class="w-full p-2 mb-4 rounded border border-gray-300" required>
+            <!-- Description Box -->
+            <div class="mt-6">
+                <textarea name="description"
+                    class="w-full h-40 p-2 rounded-md border border-gray-300 focus:outline-none focus:ring focus:ring-blue-400"
+                    placeholder="Write something..." required></textarea>
+
+            </div>
+            <button type="submit"
+                class="bg-green-500 text-white p-2 rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                Submit
+            </button>
+        </form>
+
+
+        <!-- End of Description Box -->
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Multi-Page Navigation</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <meta name="csrf-token" content="<%= csrfToken %>" />
+    <style>
+        @keyframes floating {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .floating-box {
+            animation: floating 1s infinite;
+        }
+    </style>
+    <script>
+        var token = document.querySelector("meta[name='csrf-token']").getAttribute("content")
+        function updatepage(id, ip) {
+            fetch(`/page/${id}/${ip}`, {
+                method: "put",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    _csrf: token,
+
+                })
+
+            }).then((res) => {
+                if (res.ok) {
+                    window.location.reload()
+                    console.log("ok")
+                }
+
+            }).catch((err) =>
+                console.error(err))
+        }
+
+    </script>
+
+</head>
+
+<body class="p-4">
+    <div class="navbar bg-gray-900 text-white p-4 mb-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="navbar-logo">
+                    <img src="https://superblog.supercdn.cloud/site_cuid_clbaherx5941821ml5d9gt506f/images/logo-ooolab-1686735396309.jpg"
+                        alt="Logo" class="max-h-10">
+                </div>
+
+
+            </div>
+            <div class="flex space-x-8">
+                <a href="/show" class="text-white">Home</a>
+                <a href="/about" class="text-white">About</a>
+                <a href="/contact" class="text-white">Contact</a>
+                <a href="/viewcourse?packId=<%=packId %>" class="text-white">chapterlist</a>
+                <a href="/mycoursestudent/<%=userid %>" class="text-white">mycoursesection</a>
+
+            </div>
+        </div>
+    </div>
+    <!-- Use Tailwind CSS classes -->
+    <div class="bg-white p-4 rounded shadow-lg">
+        <div id="page-container">
+            <% for (let page of pages) { %>
+                <div class="page" style="display: none;">
+                    <div class="flex items-center mb-2">
+                        <% for (let pagestat of pagestats) { %>
+
+
+                            <% if (page.id==pagestat.pageId) { %>
+
+
+                                <input id="<%= pagestat.pageId %>" type="checkbox" <%=pagestat.status? "checked" : "" %>
+                                onclick="updatepage(<%= pagestat.pageId %>,<%= pagestat.courseId %>)"class="w-4 h-4
+                                        text-blue-600 bg-gray">
+
+                                        <% } %>
+
+                                            <% } %>
+                    </div>
+                    <%- page.word %>
+                </div>
+                <% } %>
+
+
+
+        </div>
+        <div class="flex justify-between">
+            <button id="back-button" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Back</button>
+            <button id="next-button" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Next</button>
+        </div>
+    </div>
+    <div class="absolute top-25 left-1 space-x-4 bg-yellow-300 p-4 floating-box">
+        <p><span class="font-bold text-red-500 italic">N.B: 1.</span>if you are viewing blank page with back button </p>
+
+        <p><span class="font-bold text-red-500 italic"> </span>please press back until you reach the first page </p>
+    </div>
+
+    <script>
+        var pages = document.querySelectorAll('#page-container .page');
+        var backButton = document.getElementById('back-button');
+        var nextButton = document.getElementById('next-button');
+
+        // Check if the current page index is stored in session storage
+        var currentIndex = sessionStorage.getItem('currentPageIndex');
+        if (currentIndex === null) {
+            currentIndex = 0; // Default to the first page
+        } else {
+            currentIndex = parseInt(currentIndex);
+        }
+
+        function displayCurrentPage() {
+            for (var i = 0; i < pages.length; i++) {
+                if (i === currentIndex) {
+                    pages[i].style.display = 'block';
+                } else {
+                    pages[i].style.display = 'none';
+                }
+            }
+
+            if (currentIndex === 0) {
+                backButton.classList.add('hidden');
+                nextButton.classList.remove('hidden');
+            } else if (currentIndex === pages.length - 1) {
+                backButton.classList.remove('hidden');
+                nextButton.classList.add('hidden');
+            } else {
+                backButton.classList.remove('hidden');
+                nextButton.classList.remove('hidden');
+            }
+
+            // Store the current page index in session storage
+            sessionStorage.setItem('currentPageIndex', currentIndex);
+        }
+
+        function nextPage() {
+            if (currentIndex < pages.length - 1) {
+                currentIndex++;
+                displayCurrentPage();
+            }
+        }
+
+        function prevPage() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                displayCurrentPage();
+            }
+        }
+
+        nextButton.addEventListener('click', nextPage);
+        backButton.addEventListener('click', prevPage);
+        displayCurrentPage(); // Display the last viewed page or the first page initially.
+    </script>
+</body>
+
+</html>

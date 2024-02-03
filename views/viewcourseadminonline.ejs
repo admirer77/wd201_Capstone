@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Chapter List</title>
+    <meta name="csrf-token" content="<%= csrfToken %>" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css">
+</head>
+
+<body class="bg-gray-100 ">
+    <div class="navbar bg-gray-900 text-white p-4 mb-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="navbar-logo">
+                    <img src="https://superblog.supercdn.cloud/site_cuid_clbaherx5941821ml5d9gt506f/images/logo-ooolab-1686735396309.jpg"
+                        alt="Logo" class="max-h-10">
+                </div>
+
+
+            </div>
+            <div class="flex space-x-8">
+                <a href="/show" class="text-white">Home</a>
+                <a href="/about" class="text-white">About</a>
+                <a href="/contact" class="text-white">Contact</a>
+
+
+
+            </div>
+        </div>
+    </div>
+    <h1 class="text-3xl font-bold text-center my-6">Chapters</h1>
+    <table class="table-auto w-full bg-white rounded-lg shadow-lg p-4">
+        <thead>
+            <tr class="bg-gray-200">
+                <th class="px-4 py-2">Chapter ID</th>
+                <th class="px-4 py-2">Title</th>
+                <th class="px-4 py-2">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% let i=0; chapters.forEach(function(chapter, index) {i++ %>
+                <tr class="<%= index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-200' %> hover:bg-gray-300">
+                    <td class="px-4 py-2">
+                        <%= i %>
+                    </td>
+                    <td class="px-4 py-2"><a href="/adminpageonline/<%= chapter.id %>">
+                            <div class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded">
+                                <%= chapter.title %>
+                            </div>
+                        </a> <!-- Add an <a> tag with a link --></td>
+                    <td class="px-4 py-2">
+                        <%= chapter.description %>
+                    </td>
+                </tr>
+                <% }); %>
+        </tbody>
+    </table>
+</body>
+
+</html>

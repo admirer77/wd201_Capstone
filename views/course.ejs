@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add Course Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <meta name="csrf-token" content="<%= csrfToken %>" />
+</head>
+
+<body class="bg-gray-100 flex flex-col min-h-screen">
+    <!-- Navigation Bar -->
+
+
+    <div class="flex-grow flex items-center justify-center relative">
+        <div class="absolute top-6 left-6 space-x-4">
+            <a href="/show" class="p-4 text-gray-800 bg-white rounded shadow-md">Home<span
+                    class="ml-2 text-green-500">&#8594;</span></a>
+            <a href="" class="p-4 text-gray-800 bg-white rounded shadow-md">Create New Course<span
+                    class="ml-2 text-green-500">&#8594;</span></a>
+        </div>
+
+        <div class="bg-white p-8 rounded shadow-md w-1/3 mx-auto">
+            <h1 class="text-2xl text-gray-800 mb-6">Add Course</h1>
+            <form action="/course" method="post">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <input type="text" name="heading" placeholder="Enter course name"
+                    class="w-full p-2 mb-4 rounded border border-gray-300" required>
+                <button type="submit"
+                    class="bg-green-500 text-white p-2 rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    Submit
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

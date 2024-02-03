@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="<%= csrfToken %>" />
+    <!-- Include Tailwind CSS via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha384-pzjw4NxyA7ADLlZ0f/DS83I5O7jsDePsC3nmQJw4rISwMx6fe7T9CjQyC9dFO2F21" crossorigin="anonymous">
+
+    <style>
+        body {
+            margin-top: 50px;
+            /* Adjust the value as needed */
+        }
+    </style>
+    <style>
+        /* Additional styles for the moving line */
+        .moving-line-container {
+            overflow: hidden;
+            white-space: nowrap;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #58ed8c;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .moving-line {
+            display: inline-block;
+            color: #000000;
+            animation: moveLine 10s linear infinite;
+        }
+
+        @keyframes moveLine {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Additional styles for the navbar */
+
+
+
+
+
+        /* Additional styles for image box container */
+        .image-box-container {
+            display: flex;
+            justify-content: center;
+            /* Center the image boxes horizontally */
+            align-items: center;
+            flex-wrap: wrap;
+            /* Allows boxes to wrap to the next line if the width is not enough */
+            min-height: 100vh;
+        }
+
+        /* Additional styles for image box hover effect */
+        .image-box {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            width: 300px;
+            /* Adjusted box width */
+            margin: 5px;
+            /* Adjusted margin to reduce the gap */
+        }
+
+        .image-box:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+
+    <title>Course List</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const searchInput = document.querySelector("[data-search]");
+            const packs = document.querySelectorAll("[data-pack]"); // Select all pack elements
+            console.log(packs);
+
+            searchInput.addEventListener("input", (e) => {
+                const value = e.target.value.toLowerCase();
+                console.log(value);
+
+                packs.forEach((pack) => {
+                    const isVisible = pack.textContent.toLowerCase().includes(value);
+                    pack.style.display = isVisible ? "block" : "none";
+                });
+            });
+        });
+
+    </script>
+
+</head>
+
+<body class="font-sans bg-gray-100 min-h-screen">
+    <div class="moving-line-container text-lg">
+        <div class="moving-line r">
+            Greetings, <%= a.firstName %>! Your expertise is a valuable addition to our learning community, and we're
+                excited to embark on this educational journey together
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <div class="navbar bg-gray-900 text-white p-4 mb-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="navbar-logo">
+                    <img src="https://superblog.supercdn.cloud/site_cuid_clbaherx5941821ml5d9gt506f/images/logo-ooolab-1686735396309.jpg"
+                        alt="Logo" class="max-h-10">
+                </div>
+                <div class="relative flex items-center">
+                    <i class="fas fa-search text-gray-700 mr-2"></i>
+                    <input type="search" placeholder="Search"
+                        class="w-96 pl-10 pr-4 py-2 rounded-full bg-white text-gray-700 focus:outline-none border border-green-600 shadow-2xl transition-transform duration-300 transform scale-100 hover:scale-105"
+                        data-search>
+                </div>
+
+            </div>
+            <div class="flex space-x-8">
+                <a href="#" class="text-white">Home</a>
+                <a href="/about" class="text-white">About</a>
+                <a href="/contact" class="text-white">Contact</a>
+                <a href="/course" class="text-white">create</a>
+                <a href="/mycourse" class="text-white">mycourse</a>
+                <a href="/reports" class="text-white">report</a>
+            </div>
+        </div>
+    </div>
+    <div class="m-4 p-4 text-black-700 text-left">
+        <%- include("notifications.ejs") %>
+            <p class="text-4xl font-extrabold text-black-700">Welcome <%= a.firstName %>! as an Admin Let's
+                    create your Course</p>
+    </div>
+    <div class="flex space-x-4 absolute top-40 right-4">
+        <a href="/signout" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Sign Out</a>
+        <a href="/change" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Change
+            Password</a>
+    </div>
+    <div class="relative p-4">
+        <div class="relative p-4">
+
+
+
+            <a href="/course"
+                class="inline-block bg-indigo-500 text-white font-semibold px-4 py-2 rounded-md shadow-md hover:bg-indigo-800 transition duration-300 ease-in-out">
+                + Create Course
+            </a>
+
+            <a href="/mycourse"
+                class="inline-block bg-indigo-500 text-white font-semibold px-4 py-2 rounded-md shadow-md hover:bg-indigo-800 transition duration-300 ease-in-out">My
+                Course</a>
+            <a href="/reports"
+                class="inline-block bg-indigo-500 text-white font-semibold px-4 py-2 rounded-md shadow-md hover:bg-indigo-800 transition duration-300 ease-in-out">Reports</a>
+
+            <a href="/posit"
+                class="inline-block bg-indigo-500 text-white font-semibold px-4 py-2 rounded-md shadow-md hover:bg-indigo-800 transition duration-300 ease-in-out">view
+                your course popularity</a>
+
+
+
+            <div class="mt-8">
+                <div class="text-3xl font-bold mb-1 text-center text-indigo-700">Available Course List</div>
+            </div>
+            <div class="flex flex-grow flex-wrap -mx-4">
+                <% for (let pack of packs) { %>
+                    <div class="w-full md:w-1/2 lg:w-1/3 p-4" data-pack>
+                        <div
+                            class="p-6 bg-green-300 text-gray-800 rounded-lg shadow-md hover:bg-indigo-300 transition duration-300 ease-in-out transform hover:scale-105">
+                            <div class="text-xl font-bold mb-2">
+                                <%= pack.heading %>
+                                    <a href="/viewcourseadminonline/<%= pack.id %>"
+                                        class="enroll-link bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg mb-2 hover:bg-blue-800 transition duration-300 ease-in-out inline-block">Visit</a>
+                            </div>
+
+                            <ul>
+                                <% for (let users of userss ) { %>
+                                    <% if (users.id==pack.userId) { %>
+                                        <h1 class="text-xl font-semibold mb-2">Author: <%= users.firstName %>
+                                                <%= users.lastName %>
+                                        </h1>
+                                        <% } %>
+                                            <% } %>
+                            </ul>
+
+                            <% let i=0; for (let enroll of enrolls) { %>
+                                <% if (pack.id==enroll.courseId) { i++ %>
+                                    <% } %>
+                                        <% } %>
+                                            <h1 class="text-xl font-semibold mb-2"><i class="fas fa-user-graduate"></i>
+                                                Enrolled Students: <%= i %>
+                                            </h1>
+                        </div>
+                    </div>
+                    <% } %>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>
