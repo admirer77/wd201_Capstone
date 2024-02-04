@@ -1,0 +1,55 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.bg{
+    background-color: black;
+    color: white;
+}
+
+.graph-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    /* Add padding for better aesthetics */
+    margin: 10px;
+    /* Add margin for better spacing */
+}
+
+.chart-container {
+    display: flex;
+    border: 1px solid #ccc;
+    margin-left: 0;
+    /* Adjust the margin to start from the left side */
+}
+
+.bar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 15px;
+    /* Adjust the margin between bars (increased to 15px) */
+}
+
+.bar div {
+    width: 50px;
+    margin: 5px;
+    background-color: #b53663;
+    text-align: center;
+    color: white;
+    font-size: 14px;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.bar span {
+    margin-top: 10px;
+    /* Adjust the margin between the bar and the text */
+    white-space: nowrap;
+    /* Prevent text from wrapping */
+}

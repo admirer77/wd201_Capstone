@@ -5,65 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="<%= csrfToken %>" />
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .graph-box {
-            border: 1px solid #ccc;
-            padding: 10px;
-            /* Add padding for better aesthetics */
-            margin: 10px;
-            /* Add margin for better spacing */
-        }
-
-        .chart-container {
-            display: flex;
-            border: 1px solid #ccc;
-            margin-left: 0;
-            /* Adjust the margin to start from the left side */
-        }
-
-        .bar {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: center;
-            margin-right: 15px;
-            /* Adjust the margin between bars (increased to 15px) */
-        }
-
-        .bar div {
-            width: 50px;
-            margin: 5px;
-            background-color: #3498db;
-            text-align: center;
-            color: white;
-            font-size: 14px;
-            padding: 5px;
-            box-sizing: border-box;
-        }
-
-        .bar span {
-            margin-top: 10px;
-            /* Adjust the margin between the bar and the text */
-            white-space: nowrap;
-            /* Prevent text from wrapping */
-        }
-    </style>
+    <link href="./css/poseit.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="bg">
 
-    <div class="graph-box">
+    <div class="graph-box ">
         <p class="note text-center text-xl font-bold mb-4">
-            Note: This is the course vs enroll students bar graph. You can find the number of enrolled students at the
+            Note: The below graph is the course vs enroll students bar graph. You can also find the number of enrolled students at the
             top of the bar.
         </p>
         <div class="chart-container" id="chartContainer">

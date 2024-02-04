@@ -1,0 +1,70 @@
+.bg{
+    margin-top: 50px;
+    background-color: rgb(104, 104, 104);
+}
+
+.c1{
+    background-color: rgb(26, 25, 25);
+    border-radius: 20px;
+}
+
+.moving-line-container {
+    overflow: hidden;
+    white-space: nowrap;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ed5887;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.moving-line {
+    display: inline-block;
+    color: #000000;
+    animation: moveLine 10s linear infinite;
+}
+
+@keyframes moveLine {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* Additional styles for the navbar */
+
+
+
+
+
+/* Additional styles for image box container */
+.image-box-container {
+    display: flex;
+    justify-content: center;
+    /* Center the image boxes horizontally */
+    align-items: center;
+    flex-wrap: wrap;
+    /* Allows boxes to wrap to the next line if the width is not enough */
+    min-height: 100vh;
+}
+
+/* Additional styles for image box hover effect */
+.image-box {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    width: 300px;
+    /* Adjusted box width */
+    margin: 5px;
+    /* Adjusted margin to reduce the gap */
+}
+
+.image-box:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

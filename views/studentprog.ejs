@@ -9,9 +9,30 @@
 
 <body>
 
+  <div class="navbar bg-gray-900 text-white p-4 mb-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="flex items-center">
+        <div class="navbar-logo">
+          <img
+            src="https://i.postimg.cc/CxMyyxZM/learn-er-high-resolution-logo-transparent-1.png"
+            alt="Logo" class="max-h-10">
+        </div>
+
+      </div>
+      <div class="flex space-x-8">
+        <a href="/show" class="text-white">Home</a>
+        <a href="/about" class="text-white">About</a>
+        <a href="/contact" class="text-white">Contact</a>
+
+        <a href="/mycoursestudent/<%=a%>" class="text-white">mycourse</a>
+
+      </div>
+    </div>
+  </div>
+
   <div class="flex justify-center items-center h-screen">
     <div class="w-1/2 bg-blue-200 h-10 relative">
-      <div class="absolute inset-0 bg-green-500" style="width: <%= p %>%;"></div>
+      <div class="absolute inset-0 bg-red-500" style="width: <%= p %>%;"></div>
       <div class="absolute inset-0 flex items-center justify-center text-white font-bold">
         <%= p %> %
       </div>

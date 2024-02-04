@@ -3,17 +3,23 @@ var csrf = require("tiny-csrf");
 const app = express();
 const flash = require("connect-flash");
 const path = require("path");
+
 app.set("views", path.join(__dirname, "views"));
+
 const sanitizeHtml = require('sanitize-html');
 const { Note, Chapter, User, Page, Enroll, PageStat } = require('./models');
 const bodyParser = require('body-parser');
+
 var cookieParser = require('cookie-parser');
+
 const passport = require('passport');
 const connectEnsureLogin = require('connect-ensure-login')
 const session = require('express-session')
 const LocalStrategy = require('passport-local')
 const bcrypt = require('bcrypt')
 const saltRounds = 10;
+
+
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser("ssh! some secret string"));
@@ -28,11 +34,13 @@ app.use(session({
         maxAge: 24 * 60 * 60 * 1000
     }
 }));
+
 app.use(function (request, response, next) {
     response.locals.messages = request.flash();
     console.log(response.locals.messages)
     next();
 });
+
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy({
@@ -60,22 +68,19 @@ passport.deserializeUser((id, done) => {
     User.findByPk(id)
         .then(user => {
             if (user) {
-                done(null, user); // user should have an id property
+                done(null, user); 
             } else {
-                done(null, false); // no user found
+                done(null, false); 
             }
         })
 
 });
 
-//----------------------------------------------------------------------------------------------
 
-//------------------------------------------------------------------------------------
-//user related
+
 
 app.get("/course", connectEnsureLogin.ensureLoggedIn(), (req, res) => {
 
-    //----------
     if (req.user.roll == "student") {
         res.redirect("/show")
     } else {
@@ -91,18 +96,18 @@ app.get("/course", connectEnsureLogin.ensureLoggedIn(), (req, res) => {
             })
         }
     }
-    //--------------
+});
 
-})
+
 app.post("/course", async (req, res) => {
     var userr = req.user
 
     p = await userr.createNote({ heading: req.body.heading })
     res.redirect("/chapter")
-})
+});
 
-//---------------------------------------------------------------------------------------------------------------------
-//======================================================================================================================
+
+
 
 app.post("/show", async (req, res) => {
     try {
@@ -115,8 +120,9 @@ app.post("/show", async (req, res) => {
     } catch (error) {
         response.send(error)
     }
+});
 
-})
+
 app.get("/show", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     const packs = await Note.findAll()
     const chaps = await Chapter.findAll()
@@ -125,7 +131,6 @@ app.get("/show", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     const ensds = await Enroll.findAll({ where: { studentId: req.user.id } })
     const a = req.user
     const b = a.id
-    //---------------------------------------
     const packIds = packs.map(pack => pack.id);
     const ensdscourseID = ensds.map(ensd => ensd.courseId);
     const filterpacks = packIds.filter(element => !ensdscourseID.includes(element));
@@ -136,7 +141,6 @@ app.get("/show", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
         notesForFilterPacks.push(notes);
     }
     console.log(notesForFilterPacks)
-    // -------------------------------------
 
     if (req.user.roll == "admin") {
         res.render('display', {
@@ -162,22 +166,20 @@ app.get("/show", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 
         })
     }
+});
 
-
-})
 
 app.get("/", async function (reqest, response) {
     if (reqest.user) {
         response.redirect("/show")
     } else {
         response.render('fronts', {
-
             csrfToken: reqest.csrfToken()
-
         });
     }
-
 });
+
+
 app.get("/signup", (req, res) => {
     if (req.accepts("html")) {
         res.render('signup', {
@@ -190,7 +192,9 @@ app.get("/signup", (req, res) => {
 
         })
     }
-})
+});
+
+
 app.post("/signup", async (req, res) => {
     const hashedPwd = await bcrypt.hash(req.body.password, saltRounds)
     if (req.body.password.length < 6) {
@@ -217,8 +221,9 @@ app.post("/signup", async (req, res) => {
         req.flash("error", "user already exist")
         res.redirect("/signup")
     }
+});
 
-})
+
 app.get("/signin", async (req, res) => {
     if (req.accepts("html")) {
         res.render('signin', {
@@ -231,10 +236,14 @@ app.get("/signin", async (req, res) => {
             csrfToken: req.csrfToken()
         })
     }
-})
+});
+
+
 app.get("/login", async (req, res) => {
     res.redirect("/");
-})
+});
+
+
 app.post(
     "/session",
     passport.authenticate("local", {
@@ -247,9 +256,10 @@ app.post(
         response.redirect("/show");
     }
 );
-//---------------------------------------------------
 
-//---------------------------------------------------
+
+
+
 app.get("/chapter", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     const notees = await Note.findAll({ where: { userId: req.user.id } })
     const notee = notees[notees.length - 1]
@@ -273,17 +283,17 @@ app.get("/chapter", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     }
 
 })
+
 app.post("/chapter", async (req, res) => {
     const notees = await Note.findAll({ where: { userId: req.user.id } })
     const notee = notees[notees.length - 1]
     notee.createChapter({ title: req.body.title, description: req.body.description })
     res.redirect("/page")
-})
+});
+
 app.get("/page", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     const notees = await Note.findAll({ where: { userId: req.user.id } })
     const notee = notees[notees.length - 1]
-
-
     if (notee) {
         const chapters = await Chapter.findAll({ where: { noteId: notee.id } })
         if (req.accepts("html")) {
@@ -304,18 +314,19 @@ app.get("/page", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
         req.flash("error", "first create a chapter")
         res.redirect("/show")
     }
-})
+});
+
+
 app.post("/page", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     const ao = await Page.create({ word: req.body.word, chapterId: req.body.chapterId, completed: false });
     const a = req.body.chapterId;
     console.log(a);
 
-    // Pass the value of 'a' as a query parameter in the redirect URL
     res.redirect(`/read?a=${a}`);
 });
 
+
 app.get("/read", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
-    // Retrieve the 'a' value from the query parameter
     if (req.user.roll == "student") {
 
         res.redirect("/show")
@@ -342,8 +353,9 @@ app.get("/read", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
             });
         }
     }
-
 });
+
+
 app.get("/mycourse", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     const packs = await Note.findAll({ where: { userId: req.user.id } })
 
@@ -359,9 +371,10 @@ app.get("/mycourse", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 
         })
     }
-})
+});
+
+
 app.get('/enroll/:packId', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
-    //------------------
     const packId = req.params.packId;
     pos = await Enroll.findOne({ where: { studentId: req.user.id, courseId: packId } })
     if (pos) {
@@ -392,15 +405,10 @@ app.get('/enroll/:packId', connectEnsureLogin.ensureLoggedIn(), async (req, res)
                 status: false
             });
         }
-
-
-
-
         res.redirect(`/viewcourse?packId=${packId}`)
     }
-    //------------------
-
 });
+
 
 app.get("/viewcourse", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     const packId = req.query.packId;
@@ -418,6 +426,8 @@ app.get("/viewcourse", connectEnsureLogin.ensureLoggedIn(), async (req, res) => 
         res.send("no")
     }
 });
+
+
 app.get("/acpage/:chapterId/:packId", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 
     const chapterId = req.params.chapterId;
@@ -441,6 +451,8 @@ app.get("/acpage/:chapterId/:packId", connectEnsureLogin.ensureLoggedIn(), async
         });
     }
 });
+
+
 app.get("/reports", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 
     const packs = await Note.findAll({ where: { userId: req.user.id } });
@@ -461,6 +473,8 @@ app.get("/reports", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
         });
     }
 });
+
+
 app.get("/progress/:packId", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     const packId = req.params.packId;
     const enrolls = await Enroll.findAll({ where: { courseId: packId } })
@@ -489,6 +503,8 @@ app.get("/progress/:packId", connectEnsureLogin.ensureLoggedIn(), async (req, re
         });
     }
 });
+
+
 app.put("/page/:id/:ip", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     const pagestats = await PageStat.findOne({ where: { pageId: req.params.id, courseId: req.params.ip, studentId: req.user.id } })
 
@@ -505,6 +521,8 @@ app.put("/page/:id/:ip", connectEnsureLogin.ensureLoggedIn(), async (req, res) =
         return res.status(422).json(error)
     }
 });
+
+
 app.get("/student/:studentId/:packId", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     const studentId = req.params.studentId;
     const courseId = req.params.packId
@@ -528,6 +546,8 @@ app.get("/student/:studentId/:packId", connectEnsureLogin.ensureLoggedIn(), asyn
         });
     }
 });
+
+
 app.get("/viewcourses/:packId", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     const packId = req.params.packId;
     const chapters = await Chapter.findAll({ where: { noteId: packId } })
@@ -544,7 +564,9 @@ app.get("/viewcourses/:packId", connectEnsureLogin.ensureLoggedIn(), async (req,
             packId
         });
     }
-})
+});
+
+
 app.get("/mycoursestudent/:studentID", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     const studentId = req.params.studentID
     const enrolls = await Enroll.findAll()
@@ -568,7 +590,9 @@ app.get("/mycoursestudent/:studentID", connectEnsureLogin.ensureLoggedIn(), asyn
             ensds
         });
     }
-})
+});
+
+
 app.get("/myprogresses/:packId", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     a = req.user.id
     const packId = req.params.packId
@@ -593,21 +617,23 @@ app.get("/myprogresses/:packId", connectEnsureLogin.ensureLoggedIn(), async (req
             p
         });
     }
-})
+});
+
+
 app.get("/change", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     res.render("changepass", {
         csrfToken: req.csrfToken()
     })
-})
+});
+
+
 
 app.post("/changepassword", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     const enteredCurrentPassword = req.body.currentPassword;
     const newpassword = req.body.newPassword;
 
-    // Retrieve the user from the database
     const user = await User.findByPk(req.user.id);
 
-    // Compare the entered current password with the stored hashed password
     const passwordMatch = await bcrypt.compare(enteredCurrentPassword, user.password);
 
     if (!passwordMatch) {
@@ -615,7 +641,6 @@ app.post("/changepassword", connectEnsureLogin.ensureLoggedIn(), async (req, res
         res.redirect("/change")
     }
     else if (req.body.confirmPassword != req.body.newPassword) {
-        // If the current password doesn't match, handle the error
         req.flash("error", "Confirm password is not matching with new password.");
         res.redirect("/change")
 
@@ -625,20 +650,16 @@ app.post("/changepassword", connectEnsureLogin.ensureLoggedIn(), async (req, res
         res.redirect("/change")
     }
     else {
-        // If the current password doesn't match, handle the error
-
-        // If the entered current password matches the stored hashed password
-        // Hash the new password and update it in the database
-        const saltRounds = 10; // You can adjust this value
+        const saltRounds = 10; 
         const hashedNewPassword = await bcrypt.hash(newpassword, saltRounds);
 
-        // Update the user's password
         await user.update({ password: hashedNewPassword });
 
         res.redirect("/signin");
-
     }
 });
+
+
 app.get("/signout", (req, res, next) => {
     req.logOut((err) => {
         if (err) { return next(err) }
@@ -647,7 +668,9 @@ app.get("/signout", (req, res, next) => {
             res.redirect("/")
         }
     })
-})
+});
+
+
 app.get("/viewcourseadmin/:packId", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     if (req.user.roll == "admin") {
         a = req.params.packId
@@ -662,8 +685,9 @@ app.get("/viewcourseadmin/:packId", connectEnsureLogin.ensureLoggedIn(), async (
     } else {
         res.redirect("/show")
     }
+});
 
-})
+
 app.get("/adminpage/:chapterId", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     if (req.user.roll == "admin") {
         a = req.params.chapterId
@@ -683,8 +707,9 @@ app.get("/adminpage/:chapterId", connectEnsureLogin.ensureLoggedIn(), async (req
     } else {
         res.redirect("/show")
     }
+});
 
-})
+
 app.get("/viewcoursesadmin/:packId", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     const packId = req.params.packId;
     const chapters = await Chapter.findAll({ where: { noteId: packId } })
@@ -701,7 +726,9 @@ app.get("/viewcoursesadmin/:packId", connectEnsureLogin.ensureLoggedIn(), async 
             packId
         });
     }
-})
+});
+
+
 app.get("/edit/:packId", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     const packId = req.params.packId;
 
@@ -725,7 +752,9 @@ app.get("/edit/:packId", connectEnsureLogin.ensureLoggedIn(), async (req, res) =
         req.flash("error", "first create a course")
         res.redirect("/show")
     }
-})
+});
+
+
 app.post("/chapteredit/:packId", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     const packId = req.params.packId;
 
@@ -733,7 +762,9 @@ app.post("/chapteredit/:packId", connectEnsureLogin.ensureLoggedIn(), async (req
     notee.createChapter({ title: req.body.title, description: req.body.description })
     res.redirect(`/pageedit?packId=${packId}`)
 
-})
+});
+
+
 app.get("/pageedit", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     const packId = req.query.packId;
     const notee = await Note.findOne({ where: { id: packId } })
@@ -754,7 +785,9 @@ app.get("/pageedit", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
         })
     }
 
-})
+});
+
+
 app.post("/pageedit/:packId", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     console.log('hellow')
     const packId = req.params.packId;
@@ -763,15 +796,10 @@ app.post("/pageedit/:packId", connectEnsureLogin.ensureLoggedIn(), async (req, r
     const a = req.body.chapterId;
     console.log(a);
     console.log('hellow1')
-    // Pass the value of 'a' as a query parameter in the redirect URL
-
-    //-------------------------------------------------------------
     const pages = await Page.findAll({ where: { chapterId: req.body.chapterId } })
     const page = pages[pages.length - 1]
     const enstudents = await PageStat.findAll({ where: { courseId: packId } })
     console.log(page.id)
-    // -------------------------------------------
-    //----------------------------------
     const ab = [];
 
     for (const enstudent of enstudents) {
@@ -779,13 +807,11 @@ app.post("/pageedit/:packId", connectEnsureLogin.ensureLoggedIn(), async (req, r
 
         ab.push(p);
     }
-    //--------------------------------
     console.log(ab)
     let uniques = ab.filter((item, i, ar) => ar.indexOf(item) === i);
     console.log(uniques);
     console.log('hellow2')
 
-    //---------------------------
 
     for (const unique of uniques) {
         console.log('hellow3')
@@ -800,10 +826,14 @@ app.post("/pageedit/:packId", connectEnsureLogin.ensureLoggedIn(), async (req, r
     res.redirect(`/read?a=${a}`);
 
 });
+
+
 app.get("/packs", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     const packs = await Note.findAll()
     res.send(packs)
-})
+});
+
+
 app.get("/viewcourseadminonline/:packId", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     if (req.user.roll == "admin") {
         a = req.params.packId
@@ -818,8 +848,9 @@ app.get("/viewcourseadminonline/:packId", connectEnsureLogin.ensureLoggedIn(), a
     } else {
         res.redirect("/show")
     }
+});
 
-})
+
 app.get("/adminpageonline/:chapterId", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     if (req.user.roll == "admin") {
         a = req.params.chapterId
@@ -839,8 +870,9 @@ app.get("/adminpageonline/:chapterId", connectEnsureLogin.ensureLoggedIn(), asyn
     } else {
         res.redirect("/show")
     }
+});
 
-})
+
 app.get("/posit", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     const educs = await User.findAll({ where: { roll: "admin" } })
     courses = await Note.findAll()
@@ -864,17 +896,24 @@ app.get("/posit", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
         courses,
         csrfToken: req.csrfToken()
     })
-})
+});
+
+
 app.get("/about", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     res.render("about", {
         csrfToken: req.csrfToken()
     })
-})
+});
+
+
 app.get("/contact", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     res.render("contact", {
         csrfToken: req.csrfToken()
     })
-})
+});
+
+
+
 module.exports = app;
 
 

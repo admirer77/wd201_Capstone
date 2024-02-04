@@ -1,0 +1,14 @@
+.bg{
+    background:linear-gradient(45deg, #ffffff, #ff0055);
+    color: #20050e;
+    margin-top: 23vh;
+    padding: 50px;
+    padding-left: 30px;
+    border: 0;
+    border-radius: 20px;
+    height: 53vh;
+}
+body{
+    background:linear-gradient(45deg, #c4507d, #ffffff);
+    height: 80vh;
+}

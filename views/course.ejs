@@ -5,18 +5,26 @@
     <title>Add Course Page</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <meta name="csrf-token" content="<%= csrfToken %>" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
 </head>
 
-<body class="bg-gray-100 flex flex-col min-h-screen">
+<body class="bg-black flex flex-col min-h-screen">
     <!-- Navigation Bar -->
 
 
-    <div class="flex-grow flex items-center justify-center relative">
+    <div class="flex-grow flex items-center justify-center relative mt-3">
         <div class="absolute top-6 left-6 space-x-4">
-            <a href="/show" class="p-4 text-gray-800 bg-white rounded shadow-md">Home<span
-                    class="ml-2 text-green-500">&#8594;</span></a>
-            <a href="" class="p-4 text-gray-800 bg-white rounded shadow-md">Create New Course<span
-                    class="ml-2 text-green-500">&#8594;</span></a>
+            <a href="/show" class="p-4 text-white bg-gray-800 rounded shadow-md">Home<span
+                    class="ml-2 text-red-500">&#8594;</span></a>
+            <a href="" class="p-4 text-white bg-gray-800 rounded shadow-md">Create New Course<span
+                    class="ml-2 text-red-500">&#8594;</span></a>
         </div>
 
         <div class="bg-white p-8 rounded shadow-md w-1/3 mx-auto">
@@ -26,7 +34,7 @@
                 <input type="text" name="heading" placeholder="Enter course name"
                     class="w-full p-2 mb-4 rounded border border-gray-300" required>
                 <button type="submit"
-                    class="bg-green-500 text-white p-2 rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    class="bg-red-500 text-white p-2 rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     Submit
                 </button>
             </form>

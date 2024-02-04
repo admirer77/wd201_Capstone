@@ -1,0 +1,22 @@
+.header1{
+    background: linear-gradient(180deg,rgb(48, 9, 16),#b51a2b);
+    height: 20vh;
+    color: #ff7996;
+}
+
+.img1{
+    height: 30vh;
+    margin-bottom: 20px;
+}
+
+.bg{
+    background: #b51a2b;
+}
+
+.c1{
+    background-color: #ffb0c1;
+    box-shadow: 0px 0px 500px rgb(46, 0, 5);
+}
+.c2{
+    padding-top: 10vh;
+}

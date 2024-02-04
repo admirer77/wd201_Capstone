@@ -12,108 +12,31 @@
 
 
     <title>Course List</title>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const searchInput = document.querySelector("[data-search]");
-            const packs = document.querySelectorAll("[data-pack]"); // Select all pack elements
-            console.log(packs);
+    <script src="./js/display.js"></script>
+    <link href="./css/display2.css" rel="stylesheet">
 
-            searchInput.addEventListener("input", (e) => {
-                const value = e.target.value.toLowerCase();
-                console.log(value);
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-                packs.forEach((pack) => {
-                    const isVisible = pack.textContent.toLowerCase().includes(value);
-                    pack.style.display = isVisible ? "block" : "none";
-                });
-            });
-        });
-
-    </script>
-    <style>
-        body {
-            margin-top: 50px;
-            /* Adjust the value as needed */
-        }
-    </style>
-    <style>
-        /* Additional styles for the moving line */
-        .moving-line-container {
-            overflow: hidden;
-            white-space: nowrap;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: #58ed8c;
-            padding: 10px;
-            margin-bottom: 20px;
-        }
-
-        .moving-line {
-            display: inline-block;
-            color: #000000;
-            animation: moveLine 10s linear infinite;
-        }
-
-        @keyframes moveLine {
-            0% {
-                transform: translateX(100%);
-            }
-
-            100% {
-                transform: translateX(-100%);
-            }
-        }
-
-        /* Additional styles for the navbar */
-
-
-
-
-
-        /* Additional styles for image box container */
-        .image-box-container {
-            display: flex;
-            justify-content: center;
-            /* Center the image boxes horizontally */
-            align-items: center;
-            flex-wrap: wrap;
-            /* Allows boxes to wrap to the next line if the width is not enough */
-            min-height: 100vh;
-        }
-
-        /* Additional styles for image box hover effect */
-        .image-box {
-            position: relative;
-            cursor: pointer;
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            width: 300px;
-            /* Adjusted box width */
-            margin: 5px;
-            /* Adjusted margin to reduce the gap */
-        }
-
-        .image-box:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-    </style>
 
 </head>
 
-<body>
+<body class="bg font-sans min-h-screen">
     <div class="moving-line-container text-lg">
         <div class="moving-line r">
-            Welcome, <%- a.firstName %>! We welcome you to our learning community. We are eager for your participation
-                in this educational endeavor.
+            Hey Champ, <%- a.firstName %>! We welcome you to our Learn-er community. We are waiting for you to Learn where Learn-er helps you.
         </div>
     </div>
     <div class="navbar bg-gray-900 text-white p-4 mb-4">
         <div class="container mx-auto flex justify-between items-center">
             <div class="flex items-center">
                 <div class="navbar-logo">
-                    <img src="https://superblog.supercdn.cloud/site_cuid_clbaherx5941821ml5d9gt506f/images/logo-ooolab-1686735396309.jpg"
+                    <img src="https://i.postimg.cc/CxMyyxZM/learn-er-high-resolution-logo-transparent-1.png"
                         alt="Logo" class="max-h-10">
                 </div>
                 <div class="relative flex items-center">
@@ -124,7 +47,7 @@
                 </div>
 
             </div>
-            <div class="flex space-x-8">
+            <div class="flex space-x-8 ">
                 <a href="#" class="text-white">Home</a>
                 <a href="/about" class="text-white">About</a>
                 <a href="/contact" class="text-white">Contact</a>
@@ -132,24 +55,22 @@
                 <a href="/mycoursestudent/<%=b%>" class="text-white">mycourse</a>
 
             </div>
+            <div class="flex space-x-4 absolute top-40 right-4">
+                <a href="/signout" class="btn btn-danger">Sign Out</a>
+                <a href="/change" class="btn btn-secondary">Change Password</a>
+            </div>
         </div>
     </div>
-    <div class="relative p-4">
-
-    </div>
-    <div class="min-h-screen bg-gray-100 p-8">
-        <div class="flex space-x-4 absolute top-40 right-4">
-            <a href="/signout" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Sign Out</a>
-            <a href="/change" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Change
-                Password</a>
-        </div>
+    
+    <div class="min-h-screen  p-8">
+    
         <div class="max-w-screen-xl mx-auto">
 
-            <div class="m-4 p-4 text-black-700 text-left">
+            <div class="m-4 p-4 text-black-700 text-left ">
                 <%- include("notifications.ejs") %>
                     <!-- Apply Tailwind CSS classes for styling -->
-                    <p class="text-4xl font-extrabold text-black-700">Welcome <%- a.firstName %> as a Student Let's
-                            start your learning Journy!</p>
+                    <p class="text-4xl font-extrabold text-black-700">Welcome <%- a.firstName %> as a Learn-er Let's
+                            start your learning Journey!</p>
 
             </div>
 
@@ -157,7 +78,7 @@
             <div class="text-center mt-4">
 
                 <a href="/mycoursestudent/<%=a.id%>"
-                    class="block bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-red-800 transition duration-300 ease-in-out">My
+                    class="block bg-red-300 text-white font-semibold px-4 py-2 rounded-lg hover:bg-black transition duration-300 ease-in-out">My
                     Course</a>
             </div>
 
@@ -167,23 +88,23 @@
 
             <div class="mt-8">
                 <!-- Add a header section with a professional color -->
-                <p class="text-center text-red-700 text-1xl">Note: here you can find the courses that you have not
+                <p class="text-center text-red-100 text-1xl">Note: here you can find the courses that you have not
                     enrolled yet. When you enroll a course you will find it in My course section</p>
-                <div class="text-3xl font-bold mb-4 text-center text-indigo-700">Available Course List</div>
+                <div class="text-3xl font-bold mb-4 text-center text-black">Available Course List</div>
             </div>
-            <div class="flex flex-grow flex-wrap -mx-4">
+            <div class="flex flex-grow flex-wrap -mx-4 c1">
                 <!-- Create a row of course boxes with a professional light green background -->
                 <% for (let pack of notesForFilterPacks) { %>
 
                     <div class="w-full md:w-1/2 lg:w-1/3 p-4" data-pack>
                         <div
-                            class="p-6 bg-green-300 text-gray-800 rounded-lg shadow-md hover:bg-indigo-300 transition duration-300 ease-in-out transform hover:scale-105">
+                            class="p-6 bg-red-300 text-gray-800 rounded-lg shadow-md hover:bg-black hover:text-white transition duration-300 ease-in-out transform hover:scale-105">
                             <div class="text-xl font-bold mb-2">
                                 <%= pack.heading %>
                                     <a href="/enroll/<%= pack.id %>"
-                                        class="enroll-link bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg mb-2 hover:bg-blue-800 transition duration-300 ease-in-out inline-block">Enroll</a>
+                                        class="btn btn-secondary">Enroll</a>
                                     <a href="/viewcourses/<%= pack.id %>"
-                                        class="enroll-link bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg mb-2 hover:bg-blue-800 transition duration-300 ease-in-out inline-block">Visit</a>
+                                        class="btn btn-danger">Visit</a>
                             </div>
 
                             <ul>

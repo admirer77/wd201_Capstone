@@ -5,6 +5,14 @@
     <title>Chapter List</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css">
     <meta name="csrf-token" content="<%= csrfToken %>" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
 </head>
 
 <body class="bg-gray-100 ">
@@ -13,7 +21,7 @@
         <div class="container mx-auto flex justify-between items-center">
             <div class="flex items-center">
                 <div class="navbar-logo">
-                    <img src="https://superblog.supercdn.cloud/site_cuid_clbaherx5941821ml5d9gt506f/images/logo-ooolab-1686735396309.jpg"
+                    <img src="https://i.postimg.cc/CxMyyxZM/learn-er-high-resolution-logo-transparent-1.png"
                         alt="Logo" class="max-h-10">
                 </div>
 
@@ -46,7 +54,7 @@
                         <%= i %>
                     </td>
                     <td class="px-4 py-2"><a href="/acpage/<%= chapter.id %>/<%=packId%>">
-                            <div class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded">
+                            <div class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded">
                                 <%= chapter.title %>
                             </div>
                         </a> <!-- Add an <a> tag with a link --></td>
@@ -57,7 +65,7 @@
                 <% }); %>
         </tbody>
     </table>
-    <p class="text-3xl font-bold text-center my-6">Note:CLick the green buttons to start your learning</p>
+    <p class="text-3xl font-bold text-center my-6">Note:CLick the red buttons to start your learning</p>
 </body>
 
 </html>

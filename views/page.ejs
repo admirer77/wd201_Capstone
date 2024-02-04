@@ -7,37 +7,27 @@
     <meta name="csrf-token" content="<%= csrfToken %>" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss/2.2.15/dist/tailwind.min.css">
-    <script src="https://cdn.tiny.cloud/1/YOUR_API_KEY/tinymce/5/tinymce.min.js"></script>
     <title>Chapter Creating Page</title>
-    <style>
-        @keyframes floating {
+    <link href="./css/page.css" rel="stylesheet">
+    <script src="https://cdn.tiny.cloud/1/i4gq7pe5onbvs0ru3c2hmfu02z0bylyb6t0xwry1q3dmj8e4/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-15px);
-            }
-        }
-
-        .floating-box {
-            animation: floating 1s infinite;
-        }
-    </style>
+    <script>
+        tinymce.init({
+          selector: '#description-text'
+        });
+      </script>
 </head>
 
-<body class="bg-gray-100 h-screen flex items-center justify-center">
+<body class="bg-black h-screen flex items-center justify-center">
 
     <div class="absolute top-6 left-6 space-x-4">
-        <a href="/show" class="p-4 text-gray-800 bg-white rounded shadow-md">Home<span
-                class="ml-2 text-green-500">&#8594;</span></a>
-        <a href="/course" class="p-4 text-gray-800 bg-white rounded shadow-md">
-            <%=notee.heading %><span class="ml-2 text-green-500">&#8594;</span>
+        <a href="/show" class="p-4 text-white bg-gray-900 rounded shadow-md">Home<span
+                class="ml-2 text-red-500">&#8594;</span></a>
+        <a href="/course" class="p-4 text-white bg-gray-900 rounded shadow-md">
+            <%=notee.heading %><span class="ml-2 text-red-500">&#8594;</span>
         </a>
-        <a href="/chapter" class="p-4 text-gray-800 bg-white rounded shadow-md">Create More Chapter<span
-                class="ml-2 text-green-500">&#8594;</span></a>
+        <a href="/chapter" class="p-4 text-white bg-gray-900 rounded shadow-md">Create More Chapter<span
+                class="ml-2 text-red-500">&#8594;</span></a>
 
     </div>
     <div class="absolute top-25 left-1 space-x-4 bg-yellow-300 p-4 floating-box">
@@ -59,7 +49,7 @@
             <div class="flex flex-col">
                 <label for="chapterId" class="text-gray-700 text-sm font-semibold mb-2">Select Chapter:</label>
                 <select name="chapterId" id="notes"
-                    class="border rounded-lg p-3 focus:ring-2 focus:ring-green-600 focus:outline-none">
+                    class="border rounded-lg p-3 focus:ring-2 focus:ring-green-600 focus:outline-none" required>
 
                     <% for (let chapter of chapters) { %>
                         <option value="<%=chapter.id %>">
@@ -73,11 +63,12 @@
                     Description</label>
                 <textarea id="description-text" name="word"
                     class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-green-600" rows="6"
-                    placeholder="Enter your description here"></textarea>
+                    placeholder="Enter your description here" required></textarea>
+                    
             </div>
             <div class="text-center mt-4">
                 <button type="submit"
-                    class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-full focus:outline-none">
+                    class="bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-full focus:outline-none">
                     Submit
                 </button>
 
@@ -86,13 +77,8 @@
 
 
     </div>
-    <script>
-        tinymce.init({
-            selector: 'textarea',
-            plugins: 'link image',
-            toolbar: 'bold italic underline | link image',
-        });
-    </script>
+    
+    
 </body>
 
 </html>

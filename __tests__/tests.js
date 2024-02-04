@@ -21,7 +21,7 @@ const login = async (agent, username, password) => {
 describe("todo test suite", () => {
   beforeAll(async () => {
     await db.sequelize.sync({ force: true });
-    server = app.listen(2000, () => { });
+    server = app.listen(4000, () => { });
     agent = request.agent(server);
   });
   
@@ -34,10 +34,10 @@ describe("todo test suite", () => {
     let res = await agent.get("/signup");
     const csrfToken = extractCsrfToken(res);
     res = await agent.post("/signup").send({
-      firstName: "Testgsagjhsa",
-      lastName: "User A",
-      email: "usera@test.com",
-      password: "123456789",
+      firstName: "Random",
+      lastName: "Name",
+      email: "random@test.com",
+      password: "random",
       roll:"admin",
       _csrf: csrfToken,
     });
@@ -55,13 +55,13 @@ describe("todo test suite", () => {
 
   test("create course", async () => {
     const agent = request.agent(server);
-    await login(agent, "usera@test.com", "123456789");
+    await login(agent, "random@test.com", "random");
     const res = await agent.get("/course");
     
     
   const csrfToken = extractCsrfToken(res);
     const response = await agent.post('/course').send({
-      "heading":"android dev",
+      "heading":"web development",
       _csrf: csrfToken,
     });
     expect(response.statusCode).toBe(302);
@@ -69,12 +69,12 @@ describe("todo test suite", () => {
 
   test("create chapter", async () => {
     const agent = request.agent(server);
-    await login(agent, "usera@test.com", "123456789");
+    await login(agent, "random@test.com", "random");
     const res = await agent.get("/course");
     const csrfToken = extractCsrfToken(res);
     
     const response = await agent.post('/chapter').send({
-      "title":"flutter",
+      "title":"javascript",
       "description":"this is a language",
       _csrf: csrfToken,
     
@@ -84,11 +84,11 @@ describe("todo test suite", () => {
 
   test("create page", async () => {
     const agent = request.agent(server);
-    await login(agent, "usera@test.com", "123456789");
+    await login(agent, "random@test.com", "random");
     const res = await agent.get("/page");
     const csrfToken = extractCsrfToken(res);
     const response = await agent.post('/page').send({
-      "word":"welcome",
+      "word":"hello",
       _csrf: csrfToken,
       chapterId:1
     });
@@ -97,7 +97,7 @@ describe("todo test suite", () => {
 
   test("GET /read", async () => {
     const agent = request.agent(server);
-    await login(agent, "usera@test.com", "123456789");
+    await login(agent, "random@test.com", "random");
     const aValue = 1; 
     const response = await agent.get(`/read?a=${aValue}`);
     expect(response.statusCode).toBe(200);
@@ -109,7 +109,7 @@ describe("todo test suite", () => {
 
   test("GET /mycourse", async () => {
     const agent = request.agent(server);
-    await login(agent, "usera@test.com", "123456789");
+    await login(agent, "random@test.com", "random");
     const response = await agent.get("/mycourse");
     expect(response.statusCode).toBe(200);
     if (response.header["content-type"].includes("text/html")) {
@@ -120,7 +120,7 @@ describe("todo test suite", () => {
 
   test("Student Enrollment in a Course", async () => {
     const agent = request.agent(server);
-    await login(agent, "usera@test.com", "123456789");
+    await login(agent, "random@test.com", "random");
     const packIdValue = 1;
     const response = await agent.get(`/enroll/${packIdValue}`);
     expect(response.statusCode).toBe(302);
@@ -129,7 +129,7 @@ describe("todo test suite", () => {
 
   test("GET /viewcourse", async () => {
     const agent = request.agent(server);
-    await login(agent, "usera@test.com", "123456789");
+    await login(agent, "random@test.com", "random");
     const packIdValue = 1; 
     const response = await agent.get(`/viewcourse?packId=${packIdValue}`);
     expect([200, 404]).toContain(response.statusCode);
@@ -142,7 +142,7 @@ describe("todo test suite", () => {
 
   test("Mark as complete a page by a student", async () => {
     const agent = request.agent(server);
-    await login(agent, "usera@test.com", "123456789");
+    await login(agent, "random@test.com", "random");
     const chapterIdValue = 1; 
     const packIdValue = 1; 
     const response = await agent.get(`/acpage/${chapterIdValue}/${packIdValue}`);
@@ -165,17 +165,17 @@ describe("todo test suite", () => {
 
   test("Change Password", async () => {
     const agent = request.agent(server);
-    await login(agent, "usera@test.com", "123456789");
+    await login(agent, "random@test.com", "random");
     const getPasswordPageResponse = await agent.get("/change");
     expect(getPasswordPageResponse.statusCode).toBe(200);
 
-    const newPassword = "newPassword123";
+    const newPassword = "random2";
     const csrfToken = extractCsrfToken(getPasswordPageResponse);
 
     const changePasswordResponse = await agent
         .post("/changepassword")
         .send({
-            currentPassword: "123456789",
+            currentPassword: "random",
             newPassword: newPassword,
             confirmPassword: newPassword,
             _csrf: csrfToken,
@@ -186,7 +186,7 @@ describe("todo test suite", () => {
     // Make sure the password change is completed before attempting to log in
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    await login(agent, "usera@test.com", newPassword);
+    await login(agent, "random@test.com", newPassword);
     const loginResponse = await agent.get("/show");
     expect(loginResponse.statusCode).toBe(200);
     await agent.get("/signout");

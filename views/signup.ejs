@@ -5,43 +5,52 @@
     <title>Sign Up</title>
     <meta name="csrf-token" content="<%= csrfToken %>" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="./css/signup.css" rel="stylesheet">    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
 </head>
 
-<body class="bg-gray-100 flex items-center justify-center h-screen">
-    <div class="bg-white p-8 rounded shadow-md max-w-md w-full">
+<body class="bg flex items-center justify-center h-screen">
+    <div class="text-white bg-black p-8 rounded shadow-md max-w-md w-full">
         <h2 class="text-2xl font-semibold mb-4">Sign Up</h2>
         <form action="/signup" method="post">
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <div class="mb-4">
-                <label for="firstName" class="block text-gray-700">First Name</label>
+                <label for="firstName" class="block text-white">First Name</label>
                 <input type="text" id="firstName" name="firstName" required
-                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+                    class="w-full text-black px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
             </div>
             <div class="mb-4">
-                <label for="lastName" class="block text-gray-700">Last Name</label>
+                <label for="lastName" class="block text-white">Last Name</label>
                 <input type="text" id="lastName" name="lastName" required
-                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+                    class="w-full text-black px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
             </div>
             <div class="mb-4">
-                <label for="email" class="block text-gray-700">Email</label>
+                <label for="email" class="block text-white">Email</label>
                 <input type="email" id="email" name="email" required
-                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+                    class="w-full text-black px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
             </div>
             <div class="mb-6">
-                <label for="password" class="block text-gray-700">Password</label>
+                <label for="password" class="block text-white">Password</label>
                 <input type="password" id="password" name="password" required
-                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+                    class="w-full text-black px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
             </div>
             <div class="mb-4">
-                <label for="userType" class="block text-gray-700">User Type</label>
+                <label for="userType" class="block text-white">User Type</label>
                 <select id="userType" name="userType" required
-                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+                    class="w-full text-black px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
                     <option value="student">Student</option>
                     <option value="admin">Admin</option>
                 </select>
             </div>
             <div class="flex items-center justify-between">
-                <button type="submit" class="text-white bg-green-500 hover:bg-green-800 font medium rounded px-5 py-2">
+                <button type="submit" class="text-white bg-red-800 hover:bg-red-500 font medium rounded px-5 py-2">
                     Sign Up
                 </button>
             </div>
