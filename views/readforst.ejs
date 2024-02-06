@@ -6,24 +6,8 @@
     <!-- Include Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <meta name="csrf-token" content="<%= csrfToken %>" />
-    <style>
-        @keyframes floating {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-15px);
-            }
-        }
-
-        .floating-box {
-            animation: floating 1s infinite;
-        }
-    </style>
-    <script>
+    <link href="./css/readForst.css" rel="stylesheet">
+    <script >
         var token = document.querySelector("meta[name='csrf-token']").getAttribute("content")
         function updatepage(id, ip) {
             fetch(`/page/${id}/${ip}`, {
@@ -43,7 +27,6 @@
             }).catch((err) =>
                 console.error(err))
         }
-
     </script>
 
 </head>
